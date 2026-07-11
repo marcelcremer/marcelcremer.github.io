@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Icon evolution and &quot;How I switched from Font based Icons to SVG&quot; — Marcel Cremer</title>
+  <meta name="description" content="A small journey through my personal learnings about web icons and how they are displayed.">
+  <link rel="stylesheet" href="../../../styles.css?v=2">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="../../../en/">Marcel Cremer</a>
+      <nav id="site-nav" class="site-nav">
+        <a href="../../../en/#how-i-work">How I Work</a>
+        <a href="../../../en/#the-path">The Path</a>
+        <a href="../../../en/appearances/">Appearances</a>
+        <a href="../../../en/blog/">Blog</a>
+        <a href="../../../en/#contact">Contact</a>
+        <a href="../../../blog/" class="lang-switch">DE</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article wrap">
+      <p class="date">February 1, 2019</p>
+      <h1>The Icon evolution and &quot;How I switched from Font based Icons to SVG&quot;</h1>
+
+      <div class="archive-banner">
+        <p>Archived post from the previous blog (marcel-cremer.de). Technical content from before this site's current positioning at the intersection of capital and technology — carried over unchanged.</p>
+      </div>
+      <img src="../../../assets/img/icon_evolution.jpg" alt="The Icon evolution and &quot;How I switched from Font based Icons to SVG&quot;">
+
+      <p>Last week, we made the decision to migrate from our font-based icon set to <a href="https://feathericons.com" target="_blank" rel="noopener">feather icons</a> - an SVG based font set. Since I&#39;ve been using font based Icons like forever and had to read a bit about icons in general, I&#39;m going to share what I learned with you. So please join me on a journey into...</p>
+      <h3>The Evolution of Icon Sets</h3>
+      <p>A long time ago, in a world where CSS didn&#39;t exist, Icons were displayed via <strong>images</strong>.</p>
+      <p>And it was <em>good</em>.
+      Until...</p>
+      <p>People realisied, that images are very inflexible regarding their display size. Also, they consumed much bandwidth (which was costly) and if over-used, the website became slow (at that time, each image request blocked the main thread of the browser). But luckily, CSS arrived.</p>
+      <p>So people started to use so called <strong>image sprites</strong>, where a bunch of icons were placed on one image (which was cacheable). By positioning via CSS it was possible, to extract parts of this image sprite to just show the one icon needed in that particular place.</p>
+      <p>And it was <em>good</em>.
+      Until...</p>
+      <p>Web designers had again to struggle with images. Because people wanted to have the same icon in different colors and sizes, the image sprite grew larger and larger. Also accessibility became a problem.</p>
+      <p>So at around 2012, people got a new Idea: We can have text in different colors, scale it like we want to and even apply shadows on them. We can also draw text &quot;above&quot; other text by CSS positioning, so we could &quot;craft&quot; a new character by combining 2 others. And all that, by having a small file, which contains a definition on how to draw those Characters.</p>
+      <p><em>But what if it didn&#39;t contain characters? What if it contained Icons?</em></p>
+      <p>That&#39;s how <strong>Font based Icon sets</strong> were born. The icons were drawn carefully and delivered as a font set, where each &quot;character&quot; represented one icon.</p>
+      <p>They could be easily accessed by writing the corresponding character (e.g. via Unicode) or later via ligatures. They could be colored and sized, combined and even CSS effects were possible on them.</p>
+      <p>Although fonts weren&#39;t made for icons, the Icon Fonts lived a long and happy life.</p>
+      <p>And it was <em>good</em>.
+      Until...</p>
+      <h3>A small introduction in SVG</h3>
+      <p>Scalable Vector graphics (short: SVG) are a standard to describe 2-dimensional Vector graphics in XML. According to <a href="https://caniuse.com/#search=SVG">caniuse.com</a>, all &quot;modern&quot; Browsers support them. Others can be polyfilled e.g. by <a href="https://github.com/jonathantneal/svg4everybody">svg4everybody</a>.</p>
+      <p>A simple example would be</p>
+      <pre><code class="language-html">&lt;svg&gt;
+        &lt;circle cx=&quot;5&quot; cy=&quot;5&quot; r=&quot;4&quot; fill=&quot;currentColor&quot; /&gt;
+      &lt;/svg&gt;
+      </code></pre>
+      <p>which paints a circle with the current color.</p>
+      <h3>Reasons to use SVG based Icon sets</h3>
+      <p>Here&#39;s a (incomplete) list of benefits for SVG based Icons.</p>
+      <p>They are...</p>
+      <ul>
+      <li>fast to paint</li>
+      <li>much smaller than traditional Image or font based icon sets</li>
+      <li>because they are basically code, they can be extended (e.g. by adding a rectangle into the above example)</li>
+      <li>consume less bandwidth, because they can be compressed for transfer (it&#39;s a text definition after all... :) )</li>
+      <li>They can even be used within a regular &lt;img&gt; tag (although this limits your flexibility to adjusting width and height)</li>
+      <li>while Font based Icon positioning can be tricky (because they are inserted on a pseudo element, e.g. in CSS with :before and :after selector and the content-attribute), SVG based Icons can be just placed as an element itself and will be drawn nicely in their given dimensions</li>
+      <li>SVGs support Anti-Aliasing, which makes them in general a bit sharper than their font based counterparts.</li>
+      </ul>
+      <h3>My Personal Decisions: JavaScript vs Angular implementation vs Sprites</h3>
+      <p>When I started with the migration to SVG based Icons, what I first found was a JavaScript implementation that builds the SVG (first paragraph on <a href="https://github.com/feathericons/feather">feathericons</a>). However, as I was working in an Angular SPA, I didn&#39;t want to use external JS and create overhead.</p>
+      <p>So my next &quot;station&quot; on the way to SVGs was, to check out if someone already built something for angular, and of course, someone did: <a href="https://github.com/michaelbazos/angular-feather">Angular Feather</a> supports the import of single icons just as needed, where needed in the angular Application. Nice!</p>
+      <p>But wait... as every icon is encapsulated in an Angular component, I wouldn&#39;t have had access to the SVG and therefor, I wouldn&#39;t have been able to modify the color of Icon parts, add additional paths to the SVG or whatever else someone could imagine.</p>
+      <p>There had to be another option, and if I carefully read the rest of the Feather Icons site until the end, I would&#39;ve seen it right at the beginning: <strong>SVG Sprites</strong>!</p>
+      <h3>SVG Sprites</h3>
+      <p>SVG Sprites are basically an xml file, where many Icon definitions are stored with a corresponding anchor. In case of Feather Icons, the SVG sprite is about 50kb (uncompressed) which was very acceptable for my Web Application.</p>
+      <p>So I created the base class in css, which describes the overall icon behaviour:</p>
+      <pre><code class="language-css">.fi {
+        width: 1em;
+        height: 1em;
+        stroke: currentColor;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        fill: none;
+      }
+      </code></pre>
+      <p>Because I chose relative sizes, the icons are as high as they should be in the different places according to the font size (just like their font based counterparts).</p>
+      <p>The &quot;stroke&quot; defines how the lines defined by the SVG should be drawn. Because it&#39;s set to &quot;currentColor&quot;, the icon will use the current font color of it&#39;s context.</p>
+      <p>Right after defining those basics, I was able to exchange my icons to their SVG-equivalent:</p>
+      <pre><code class="language-html">&lt;svg class=&quot;fi&quot;&gt;&lt;use xlink:href=&quot;/assets/feather/feather-sprite.svg#user&quot; /&gt;&lt;/svg&gt;
+      </code></pre>
+      <p>(note #user, which is the anchor reference for the Icon I want to draw out of the SVG sprite)</p>
+      <p>And what should I say? <strong>It just works!</strong></p>
+      <p>I was even able to create additional helper classes, for small, large and 2x 3x and 4x original size, by adding a few simple CSS classes.</p>
+      <p>I hope you could also take something out of my journey through the icon evolution. Which ones do you prefer and why?</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© 2026 Marcel Cremer</p>
+      <nav>
+        <a href="https://www.linkedin.com/in/marcel-cremer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:marcel@cremer.one">Contact</a>
+        <a href="../../../impressum/">Impressum</a>
+        <a href="../../../datenschutz/">Privacy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../../../script.js"></script>
+</body>
+</html>
