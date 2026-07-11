@@ -449,23 +449,6 @@ section > h2 {
   padding: 0;
 }
 
-/* Blog index: separator between current and archived posts */
-
-.index-subheading {
-  font-size: 0.85rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--color-text-muted);
-  border-bottom: 1px solid var(--color-border);
-  padding-bottom: 0.5rem;
-  margin: 2.5rem 0 0.5rem;
-}
-
-.index-subheading:first-of-type {
-  margin-top: 0;
-}
-
 /* Footer */
 
 .site-footer {
