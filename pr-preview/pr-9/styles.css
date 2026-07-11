@@ -190,6 +190,13 @@ p {
   padding: 4.5rem 0 3rem;
 }
 
+.hero-avatar {
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin-bottom: 1.5rem;
+}
+
 .hero .eyebrow {
   display: inline-block;
   text-transform: uppercase;
@@ -234,7 +241,7 @@ p {
 
 .proof-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
 }
 
@@ -266,6 +273,7 @@ section > h2 {
   background: var(--color-accent);
   color: var(--color-on-accent);
   padding: 0.4rem 1rem;
+  margin-top: 1rem;
   margin-bottom: 0.75rem;
 }
 
@@ -584,12 +592,6 @@ section > h2 {
 /* Responsive */
 
 @media (max-width: 720px) {
-  .proof-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 480px) {
   .proof-grid {
     grid-template-columns: 1fr;
   }
