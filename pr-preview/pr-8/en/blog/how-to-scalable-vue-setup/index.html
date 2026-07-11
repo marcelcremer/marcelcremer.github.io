@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to create a scalable vue.js setup (Part I) — Marcel Cremer</title>
+  <meta name="description" content="In this article I describe, how to create a foundation for a scalable vue.js SPA application by using the cli, adding Dependency injection and decorators.">
+  <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="../../../en/">Marcel Cremer</a>
+      <nav id="site-nav" class="site-nav">
+        <a href="../../../en/#scaling">Scaling</a>
+        <a href="../../../en/#speaking">Speaking</a>
+        <a href="../../../en/blog/">Blog</a>
+        <a href="../../../en/#about">About</a>
+        <a href="../../../blog/" class="lang-switch">DE</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article wrap">
+      <p class="date">January 18, 2021</p>
+      <h1>How to create a scalable vue.js setup (Part I)</h1>
+
+      <div class="archive-banner">
+        <p>Archived post from the previous blog (marcel-cremer.de). Technical content from before this site's current positioning at the intersection of capital and technology — carried over unchanged.</p>
+      </div>
+      <img src="../../../assets/img/vue_app.jpg" alt="How to create a scalable vue.js setup (Part I)">
+
+      <p>If you know me a little bit or read my bio in social media, you&#39;ll probably have noticed that I&#39;m a big fan of vue.js (and if you don&#39;t follow me right now, consider following me on <a href="https://twitter.com/1devlife" title="twitter">twitter</a> 😜).</p>
+      <p>This is for a reason: Coming from angular, I personally like the approaches they chose to organize and do things. They have dependency injection, routers, stores, a test harness and much more. However, it has also a big downside: Everything feels a bit big and bloaty and I always had the feeling, that I could not develop as fast in angular as I should.</p>
+      <h3>Introducing my vue.js setup</h3>
+      <p>If you don&#39;t know vue.js, you can <a href="https://vuejs.org/" title="check it out here">check it out here</a>. Vue.js is a rather small framework (20KB compressed and minified) that focuses on the &quot;view&quot; part of the application (that&#39;s why it&#39;s pronounced /vjuː/, like &quot;view&quot; - just in case you wondered). Additionally, there are plenty of resources, plugins and so on that you can use to customize it to your needs (a comprehensive list is available here: <a href="https://github.com/vuejs/awesome-vue" title="awesome-vue">awesome-vue</a>). So let&#39;s start:</p>
+      <h3>The Foundation: Vue-cli</h3>
+      <p>Comparable to angular, the vue environment also <a href="https://cli.vuejs.org/" title="has a cli">has a cli</a> that you can use to generate an application according to your needs. Even better, you can choose what tools you like to use and you can configure it to your needs (e.g. webpack) without ejecting the configuration. A simple command</p>
+      <pre><code class="language-bash">vue create &lt;projectname&gt;
+      </code></pre>
+      <p>creates a new project and you are able to choose, which css-framework you like to use, if you want babel and / or typescript, if you create a PWA (automatic manifest generation), which test framework for unit and e2e tests you prefer and if you opt for eslint or the deprecated (but still awesome) tslint. This alone is a huge advantage, as you are able to create the environment in a way that perfectly matches your needs. I personally use the configuration</p>
+      <pre><code class="language-bash">[Vue 2] dart-sass, babel, typescript, pwa, router, vuex, unit-jest, e2e-cypress
+      </code></pre>
+      <p>but this can be very opinionated. After creating the project, you can launch a pretty cool dashboard via</p>
+      <pre><code class="language-bash">vue ui
+      </code></pre>
+      <p>which shows you not only your projects (it&#39;s possible to have a multi-project Monorepo in vue), but also the bundle sizes and the transpilation statistics. It&#39;s awesome!</p>
+      <h3>Getting stuff: Dependency injection</h3>
+      <p>As mentioned before, vue only concentrates on the view part of your application. So the next thing I usually tend to do is to introduce dependency injection and for this task, I absolutely love <a href="https://inversify.io/">inversify.js</a> although people are discussing on <a href="https://github.com/inversify/InversifyJS/issues/1225">how to proceed with future maintenance</a>. It&#39;s very well established and plenty of larger projects are using this, so that I&#39;m optimistic that even if the maintainer does not support it in the future, there will be forks or other ideas to further support this framework.</p>
+      <p>After installation, I basically do the whole DI configuration in three files:</p>
+      <ol>
+      <li>di.types.ts</li>
+      </ol>
+      <pre><code class="language-javascript">export const TYPES = {
+        /**
+         * Services
+         */
+        DATA_SERVICE: Symbol.for(&#39;DATA_SERVICE&#39;),
+      };
+      </code></pre>
+      <p>This file defines Symbols, so that inversify has unique tokens to inject things.</p>
+      <ol start="2">
+      <li>di.container.ts</li>
+      </ol>
+      <pre><code class="language-javascript">import { Container } from &#39;inversify&#39;;
+      import getDecorators from &#39;inversify-inject-decorators&#39;;
+      
+      export const container = new Container({ defaultScope: &#39;Singleton&#39; });
+      
+      const { lazyInject } = getDecorators(container);
+      export default lazyInject;
+      </code></pre>
+      <p>This file is just to create a singleton container and make it possible to &quot;lazy inject things&quot;. This is necessary due to a babel / webpack issue: On startup of the application, several files can request stuff and if you don&#39;t have the container imported from an own module, some things like lazy inject won&#39;t work</p>
+      <ol start="3">
+      <li>di.config.ts</li>
+      </ol>
+      <pre><code class="language-javascript">import &#39;reflect-metadata&#39;;
+      import { container } from &#39;@/di.container&#39;;
+      import { TYPES } from &#39;@/di.types&#39;;
+      import { DataService } from @/services/data.service.ts;
+      
+      container.bind&lt;DataService&gt;(TYPES.DATA_SERVICE).to(DataService);
+      </code></pre>
+      <p>Here we bind a service to our previously defined Symbols. That&#39;s basically the whole magic about itroducing dependency injection. Easy, wasn&#39;t it?</p>
+      <h3>Property decorators</h3>
+      <p>The next thing to tackle for a scalable application is, that we want to have a well written component that is easy to read and to reuse. Vue components are usually <strong>single file</strong>, which has it&#39;s benefits (e.g. if you want to change some css, and then html and oh, you also need to introduce this property in typescript...). It&#39;s also easier to maintain some code standard about how large a component should possibly become, if you had single file components (e.g. &gt;250loc =&gt; linter error). To additionally increase readability, I like to use typescript class components flavoured with <a href="https://github.com/kaorun343/vue-property-decorator">vue property decorators</a>.</p>
+      <p>Here&#39;s some example, how a class component with decorators and dependency injection could look like:</p>
+      <pre><code class="language-vue">&lt;template&gt;
+        &lt;div class=&quot;hello-world&quot;&gt;
+          {{ message }}
+          The sum of {{ a }} + {{ b }} is {{ sum }}. Our current mood is {{ mood }}
+        &lt;/div&gt;
+      &lt;/template&gt;
+      
+      &lt;script lang=&quot;ts&quot;&gt;
+      import lazyInject from &#39;@/di.decorator&#39;;
+      import { TYPES } from &#39;@/di.types&#39;;
+      import { Component, Prop, Vue } from &#39;vue-property-decorator&#39;;
+      
+      @Component
+      export default class HelloWorld extends Vue {
+        mood!: string;
+      
+        @lazyInject(TYPES.DATA_SERVICE)
+        dataService!: DataService;
+      
+        @Prop()
+        message!: string;
+      
+        @Prop()
+        a!: number;
+      
+        @Prop()
+        b!: number;
+      
+        get sum() {
+          return a + b;
+        }
+      
+        async mounted() {
+          this.mood = dataService.get(`/api/v1/mood`);
+        }
+      }
+      &lt;/script&gt;
+      
+      &lt;style lang=&quot;scss&quot; scoped&gt;
+      .hello-world {
+        color: blue;
+      }
+      &lt;/style&gt;
+      </code></pre>
+      <p>pretty neat, isn&#39;t it? 😁 Having this result is a good first step for creating a scalable vue app. If you are interested in more of this topic, I&#39;m gonna talk about state management, testability and deployment (e.g. different environments) in the next part of this article series. Thank you for reading!</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© 2026 Marcel Cremer</p>
+      <nav>
+        <a href="https://www.linkedin.com/in/marcel-cremer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:marcel@cremer.one">Contact</a>
+        <a href="../../../impressum/">Impressum</a>
+        <a href="../../../datenschutz/">Privacy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../../../script.js"></script>
+</body>
+</html>
