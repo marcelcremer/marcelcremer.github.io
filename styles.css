@@ -501,26 +501,6 @@ section > h2 {
   padding: 0;
 }
 
-/* Archive banner — flags legacy content ported from the previous blog that
-   predates the capital/tech repositioning, so it reads as archive material
-   rather than the current voice of the site. */
-
-.archive-banner {
-  border-left: 3px solid var(--color-accent);
-  background: var(--color-surface);
-  border-radius: 0 8px 8px 0;
-  padding: 0.75rem 1rem;
-  margin-bottom: 1.75rem;
-  max-width: 68ch;
-}
-
-.archive-banner p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--color-text-muted);
-  font-weight: 400;
-}
-
 /* Blog index: separator between current and archived posts */
 
 .index-subheading {
@@ -598,16 +578,6 @@ section > h2 {
 .legal p {
   font-weight: 400;
   color: #E5E5E5;
-}
-
-.todo {
-  background: rgba(245, 196, 0, 0.18);
-  border: 1px dashed var(--color-accent);
-  border-radius: 6px;
-  padding: 0.15rem 0.5rem;
-  font-weight: 600;
-  font-size: 0.9em;
-  color: var(--color-accent);
 }
 
 /* Responsive */
