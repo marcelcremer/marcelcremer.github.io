@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ich bin zu HUGO gewechselt - und bereue es nicht! — Marcel Cremer</title>
+  <meta name="description" content="In diesem Artikel beschreibe ich, warum ich zu HUGO gewechselt bin und warum ich es für eine super Idee halte.">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="../../">Marcel Cremer</a>
+      <nav id="site-nav" class="site-nav">
+        <a href="../../#skalieren">Skalieren</a>
+        <a href="../../#praxis">Praxis</a>
+        <a href="../../#speaking">Speaking</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../#about">About</a>
+        <a href="../../en/blog/i-switched-to-hugo/" class="lang-switch">EN</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article wrap">
+      <p class="date">9. Oktober 2022</p>
+      <h1>Ich bin zu HUGO gewechselt - und bereue es nicht!</h1>
+
+      <div class="archive-banner">
+        <p>Archiv-Beitrag vom früheren Blog (marcel-cremer.de). Technischer Inhalt aus der Zeit vor der aktuellen Positionierung dieser Seite an der Schnittstelle von Kapital und Technologie — unverändert übernommen.</p>
+      </div>
+      <img src="../../assets/img/hugo.svg" alt="Ich bin zu HUGO gewechselt - und bereue es nicht!">
+
+      <p>Wie manche von euch vielleicht schon gesehen haben, habe ich meiner Homepage kürzlich ein neues Design verpasst. Über die letzten Wochen habe ich, mal mehr, mal weniger, immer wieder an einer neuen Version dieser Homepage gearbeitet, weil der alte Wordpress-Brocken sich mittlerweile ganz schön lahm angefühlt hat. Außerdem hat Wordpress mich ständig mit Sicherheitsupdates, Theme-Updates, Plugin-Updates und so weiter auf Trab gehalten - mal ganz von der Server-Maintenance abgesehen.</p>
+      <p>Ich habe bereits in der Vergangenheit static site generators benutzt, allerdings hatte ich damit immer so viele Probleme (von der Metatag-Geneierung über das Neu-Bauen, Publishing von verschiedenen Rechnern,...), dass ich keinen von Ihnen über längere Zeit benutzen wollte. Mit HUGO habe ich all diese Limitierungen aber mittlerweile erfolgreich behoben, und hier ist die &quot;shiny new Homepage&quot; - Tada!</p>
+      <h2>Static Site Generator</h2>
+      <p>Ich schreibe meine Artikel auch weiterhin in Markdown. Was sich geändert hat ist, dass ich sie in einem git-Repository nach Github pushe. Eine minimale github actions Datei überwacht dabei die <code>main</code>-Branch und baut die Homepage bei jedem push oder erfolgreichen Merge eines Pull-Requests neu und lädt sie per SFTP auf meinen Webserver.</p>
+      <h2>Geplante Posts</h2>
+      <p>Für geplante Posts kann man einfach in den Metadaten des Artikels das geplante Datum angeben und die Github Actions regelmäßig via cronjob bauen. HUGO wird (per default) nur die Artikel die in der Vergangenheit geschrieben wurden erstellen. Auf diese Weise werden die Artikel erst veröffentlicht, wenn diese geplant veröffentlicht werden sollen.</p>
+      <h2>Übersetzungen</h2>
+      <p>Für meine neue Webseite benutze ich das <a href="https://github.com/apvarun/blist-hugo-theme">blist theme</a>, welches schon im Standard Support für mehrere Sprachen bestitzt. Auf diese Weise kann ich einfach die Markdown Files in den Ordner für die entsprechende Sprache packen und HUGO stellt die Seiten nur in der jeweiligen Sprache dar. Außerdem erkennt das Theme automatisch, falls ein Artikel in mehreren Sprachen verfügbar ist und bietet direkt eine Verlinkung zu dem jeweiligen Äquivalent in anderer Sprache an.</p>
+      <h2>Eigene 404-Seite</h2>
+      <p>Es ist auch möglich, eine <a href="https://gohugo.io/templates/404/">eigene 404 Seite</a> zu erstellen und diese via .htaccess, nginx.con etc. zu verlinken. Die Konfigurationsdateien dafür packt man einfach in den <code>static</code> Ordner, wo sie von HUGO beim nächsten build einfach mit kopiert werden.</p>
+      <h2>Robots.txt</h2>
+      <p>Auf die gleiche Art und Weise wie man eigene 404 Seiten erstellen kann, kann man auch einfach eine robots.txt Datei erstellen und diese in den <code>static</code> Ordner packen. Auch hier kopiert HUGO bei jedem build einfach um und hält sie damit aktuell.</p>
+      <h2>Kommentare</h2>
+      <p>Kommentare sind die Achilles-Verse der static page Generatoren. Es gibt dort draußen jede Menge Lösungen, von Cloud-Providern (zugegebenermaßen die meiste Zeit nicht sehr Datenschutz-freundlich), zu selbstgehosteten Lösungen oder sogar die Nutzung von Github Issues als Kommentaren. Ich habe mich allerdings im ersten Schritt dazu entschlossen, auf Kommentare zu verzichten, da ich aktuell keine Zeit zur Moderation habe. Sorry dafür, aber ihr könnt mich natürlich immer per mail, twitter oder <a href="https://dev.to/marcel_cremer">dev.to</a> erreichen. Meine socials seht findet ihr auch im footer.</p>
+      <h2>Fazit</h2>
+      <p>HUGO als static site generator für meine Homepage fühlt sich kein bisschen schwierige zu warten an, als mein bisheriger Wordpress-blog. Ganz im Gegenteil fühle ich mich eigentlich sogar erleichtert, dass ich nicht mehr jeden Tag irgendwelche Wordpress Themes, Plugins, Seiten etc. patchen und dauernd irgendwas reparieren muss. Von der Server-Wartung mal ganz abgesehen. Außerdem ist die statisch generierte Seite um einiges datenschutzfreundlicher und viel schneller. Falls <a href="https://gohugo.io/">du HUGO auschecken</a> möchtest, kann ich dich dazu nur ermuntern. Sobald man sich einmal an die Konventionen bezüglich Ordnern etc. gewöhnt hat, ist es wirklich sehr einfach damit umzugehen.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© 2026 Marcel Cremer</p>
+      <nav>
+        <a href="https://www.linkedin.com/in/marcel-cremer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:marcel@cremer.one">Kontakt</a>
+        <a href="../../impressum/">Impressum</a>
+        <a href="../../datenschutz/">Datenschutz</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../../script.js"></script>
+</body>
+</html>

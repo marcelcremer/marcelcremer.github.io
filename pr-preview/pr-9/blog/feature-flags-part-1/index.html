@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unfertige Features mit feature flags releasen (Part 1) — Marcel Cremer</title>
+  <meta name="description" content="In diesem Artikel gebe ich eine Übersicht darüber, was feature flags sind, welche Arten es gibt und wie man sie sinnvoll nutzen kann.">
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="../../">Marcel Cremer</a>
+      <nav id="site-nav" class="site-nav">
+        <a href="../../#skalieren">Skalieren</a>
+        <a href="../../#praxis">Praxis</a>
+        <a href="../../#speaking">Speaking</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../#about">About</a>
+        <a href="../../en/blog/feature-flags-part-1/" class="lang-switch">EN</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Menü öffnen" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article wrap">
+      <p class="date">17. Oktober 2022</p>
+      <h1>Unfertige Features mit feature flags releasen (Part 1)</h1>
+
+      <div class="archive-banner">
+        <p>Archiv-Beitrag vom früheren Blog (marcel-cremer.de). Technischer Inhalt aus der Zeit vor der aktuellen Positionierung dieser Seite an der Schnittstelle von Kapital und Technologie — unverändert übernommen.</p>
+      </div>
+      <img src="../../assets/img/feature-flags.jpg" alt="Unfertige Features mit feature flags releasen (Part 1)">
+
+      <p>In einem Markt, in dem es immer mehr Software-Firmen gibt, nimmt das schnelle Releasen von Features für die Kunden einen immer höheren Stellenwert ein. Umso schneller ein Dev-Team Funktionalität liefern kann, umso mehr Tests und Iterationen können in einem immer kürzeren Zeitfenster erfolgen. Außerdem werden diese viel kleiner und die Learnings können früher umgesetzt werden. Am besten wäre es also, wenn die Releases schon zur Verfügung stünden, während man noch entwickelt - oder?</p>
+      <p>In diesem Artikel gebe ich eine Übersicht darüber, was feature flags sind, welche Arten es gibt und wie man sie sinnvoll nutzen kann.</p>
+      <h2>Was sind eigentlich feature flags?</h2>
+      <p>Die feature flags (manchmal auch &quot;feature toggles&quot;) ermöglichen es, das Verhalten von Software zu ändern, ohne dafür ein neues Release zu fahren oder Code zu ändern. Stattdessen benutzt man verschiedene Techniken, wie z.B. Konfiguration in Datenbanktabellen, Environment-Variablen oder sogar speziell dafür entworfene REST oder Micro-Services, die die entsprechenden flags bereitstellen.</p>
+      <p>Die feature flags können zudem binär (an / aus) oder auch komplexer sein. So ist es zum Beispiel auch möglich, dass man einen String oder ganze Konfigurationsdateien (wie JSON o.ä.) dazu nutzt, das Verhalten von Software zur Laufzeit zu ändern (sogenannte &quot;variant feature flags&quot;).</p>
+      <h2>Wofür benötigt man feature flags?</h2>
+      <p>Die Möglichkeit, unfertige Software für das eigene Business oder sogar Kunden bereitstellen zu können, kann sehr hilfreich sein. Man kann die Software bereits im Entwicklungsprozess testen und Feedback erhalten. Häufig bedeutet das, noch während man an dem entsprechenden Feature arbeitet, nicht bedachte bzw. fehlende Funktionalität aufzudecken und diese viel früher implementieren zu können. Das wiederum sorgt dafür, dass man viel kleinteiliger releasen und deutlich mehr und schnellere Iterationen durchführen kann. Außerdem kann man dadurch teilweise bereits für bestimmte Nutzergruppen wertvolle Funktionalität bereitstellen.</p>
+      <p>Hier sind ein paar konkretere Anwendungsfälle:</p>
+      <h3>Software mit &quot;Gruppen feature flags&quot; testen</h3>
+      <p>Wie bereits geschrieben, ist es bei neuer Software häufig so, dass Kunden oder Stakeholder nicht genau wissen, was sie wollen (oder nicht wollen), bis sie es live und in Aktion gesehen haben. Für Softwareentwickler kann es besonders anstrengend sein, wenn bestimmte Software ausgeliefert werden soll - zum Beispiel ein Eingabeformular - und die Stakeholder sofort anfangen, Dinge ändern zu wollen. Der Button soll dann auf einmal grün statt blau sein, die Reihenfolge der Formularfelder geändert werden und überhaupt - da fehlen ja noch drei Felder, an die man bisher nicht gedacht hat und die alle eine besondere Validierung bedürfen. Vermutlich kennen wir alle diese &quot;Last-Minute-Änderungen&quot;, die am besten kurz vor der Deadline zur Auslieferung auffallen.</p>
+      <p>Umso früher diese Änderungswünsche identifiziert werden, umso einfacher und kostengünstiger ist es häufig, diese umzusetzen. Zudem ist es nur natürlich, dass Developer die Änderungen viel schneller umsetzen können, während sie noch an der entsprechenden Stelle arbeiten und nicht erst, wenn sie schon tief in die nächste Aufgabe eingetaucht sind.</p>
+      <p>An dieser Stelle kommen bestimmte feature flags zum tragen, die ich gerne &quot;Gruppen feature flags&quot; nenne:</p>
+      <p>Als &quot;Gruppen feature flags&quot; bezeichne ich feature flags, die es nicht nur ermöglichen, den Status an / aus anzunehmen. Sie sind zusätzlich in der Lage, auf bestimmte Nutzergruppen eingeschränkt zu werden. Das kann beispielsweise eine Liste von User-Ids (z.B. Login-Namen oder E-Mail-Adressen) von bestimmten Usern sein, die das entsprechende Feature sehen können sollen, sofern es aktiviert wurde. Es könnte aber auch eine IP-Range oder ein oder mehrere Hostnamen sein, die beispielsweise das Feature für alle Personen, die aus einem bestimmten Office mit statischer IP-Adresse darauf zugreifen.</p>
+      <p>Diese Art von feature flags stellen ein Feature für eine bestimmte Gruppe von Benutzern bereit, sodass diese bereits testen können, während sie sich noch in der Entwicklung befinden.</p>
+      <h2>A / B Testing und &quot;gradual rollouts&quot;</h2>
+      <p>Um die Unsicherheit darüber, wie neue Features die Bestands- oder Neukunden beeinflussen zu managen, kann es sowohl für das Produktmanagement, wie auch für Marketing und Sales sehr hilfreich sein, Insights von echten Nutzern zu erhalten, die die Software tatsächlich benutzen. Wenn wir uns diese Art von Testing in anderen Bereichen anschauen, können wir beobachten, dass zum Beispiel Marketing diese Technik sehr stark bei Werbeanzeigen benutzt. Es werden unterschiedliche Anzeigen geschaltet, diese werden eine Weile lang gemonitored und dann werden die Statistiken geprüft, wie oft die Anzeigen gesehen / geklickt / weggeklickt wurden.</p>
+      <p>Wir können genau die gleiche Technik in der Softwareentwicklung dazu nutzen, verschiedene Varianten der selben Funktionalität (z.B. einen Button links oder rechts platzieren) auszuprobieren und zu monitoren, wie diese benutzt werden, wie lange es dauert, bis ein bestimmter call-to-action geklickt wird oder wie viele Supportanfragen bei bestimmten Funktionalitäten generiert werden.</p>
+      <p>Für diese Art von Tests gibt es mindestens zwei Arten von Feature flag Techniken:</p>
+      <h3>A / B Testing feature flags</h3>
+      <p>A / B Testing ist ein sehr typischer Fall für die Benutzung von feature flags. Die Idee ist, dass wir 50% der Nutzer Variante A und 50% der Nutzern Variante B eines Features zuspielen. Das beobachtet man dann für eine Weile und zieht danach ein Fazit, welche Variante besser oder mehr benutzt wurde oder am wenigsten Rückfragen oder Supportanfragen verursacht haben.</p>
+      <p>Wichtig für den Einsatz von feature flags im Bereich A / B testing ist, dass man nicht einfach der ersten Anfrage Variante A und der zweiten Variante B ausliefern kann. Stattdessen muss man sich merken, wer der erste User war und konsistent den gleichen feature flag status zurückgeben. Nehmen wir an, John bekommt Variante A und Jane Variante B, dann sollte sich dieses Verhalten nicht verändern, da wir John stark verwirren würden, wenn er mal Variante A und mal B zugespielt bekommt. Zudem würden die Metriken, die wir erfassen, ziemlich nichtssagend sein.</p>
+      <h3>Gradual Rollout feature flags</h3>
+      <p>&quot;Gradual rollout feature flags&quot; gehen in die gleiche Richtung wie A / B Testing feature flags. Der Unterschied ist, dass wir mit einer kleinen Zielgruppe starten, messen und dann langsam die Auslieferung des Features erhöhen.</p>
+      <p>Ein Beispiel dafür: Wir sind uns nicht sicher, wie sich die Darstellung von Werbung in unserem Produkt auf das Nutzerverhalten auswirken würde. Dazu gehört, dass wir nicht wissen, wie Benutzer reagieren, ob sie es akzeptieren oder sich darüber beschweren, ob die Kernfunktionalität beeinflusst wird oder ob sie uns sogar ganz verlassen, weil die Werbung zu störend ist.</p>
+      <p>Um das Gesamtrisiko zu reduzieren, benutzen wir &quot;Gradual rollout feature flags&quot; um die Werbeblöcke zunächst für 10% unseres gesamten Nutzerbestandes auszurollen und zu messen, wie sich das Verhalten ändert. Der erste User - John mal wieder - erhält die Werbeblöcke und die folgenden 9 User erhalten keine. Wenn John keine Supportanfragen oder Beschwerden einreicht oder sogar den Vertrag kündigt, erhöhen wir auf 20% der Userbase. Jetzt erhält auch Jane die Werbung und wir messen weiter, wie sich das Verhalten ändert bevor wir eine Entscheidung treffen, diese auf weitere User auszurollen oder einen oder mehrere Schritte zurück zu gehen.</p>
+      <p>Auch für diese Art von feature flags ist es wichtig, dass wir uns &quot;merken&quot;, wer ein Feature erhält und wer nicht, sodass wir konsistent bleiben, die User nicht verwirren und die Metriken aussagekräftig sind.</p>
+      <h2>Fazit</h2>
+      <p>Dies ist der erste Teil meiner Serie zum Thema feature flags. Ich hoffe, du konntest einen Eindruck darüber gewinne, was feature flags sind, warum sie nützlich sind und wie man sie anwenden kann, um</p>
+      <ul>
+      <li>Software schneller auszuliefern</li>
+      <li>schneller zu lernen und die Software anzupassen, noch während man ein Feature entwickelt</li>
+      <li>mit kleineren Iterationen schneller auf Feedback zu reagieren</li>
+      </ul>
+      <p>In meinem nächsten Artikel über dieses Thema gebe ich ein paar Einblicke, wie man feature flags während des ganzen Software-Lebenszyklus wartbar hält.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© 2026 Marcel Cremer</p>
+      <nav>
+        <a href="https://www.linkedin.com/in/marcel-cremer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:marcel@cremer.one">Kontakt</a>
+        <a href="../../impressum/">Impressum</a>
+        <a href="../../datenschutz/">Datenschutz</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../../script.js"></script>
+</body>
+</html>
