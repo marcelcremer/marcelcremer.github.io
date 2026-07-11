@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The 7 Types of Waste in Software Development — Marcel Cremer</title>
+  <meta name="description" content="This article describes, what kind of wastes in Software development exists.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap">
+  <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" href="../../../en/">Marcel Cremer</a>
+      <nav id="site-nav" class="site-nav">
+        <a href="../../../en/#scaling">Scaling</a>
+        <a href="../../../en/#speaking">Speaking</a>
+        <a href="../../../en/blog/">Blog</a>
+        <a href="../../../en/#about">About</a>
+        <a href="../../../blog/lean-development-waste/" class="lang-switch">DE</a>
+      </nav>
+      <button id="nav-toggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <article class="article wrap">
+      <p class="date">October 24, 2022</p>
+      <h1>The 7 Types of Waste in Software Development</h1>
+
+      <div class="archive-banner">
+        <p>Archived post from the previous blog (marcel-cremer.de). Technical content from before this site's current positioning at the intersection of capital and technology — carried over unchanged.</p>
+      </div>
+      <img src="../../../assets/img/assembly-line.jpg" alt="The 7 Types of Waste in Software Development">
+
+      <p>As everybody knows, I&#39;m a big fan of lean development. The concepts of lean development are an adaption of the lean manufacturing approach, that made the Toyota production system very competetive and in some areas even a market leader in the middle of the 20th century. Likewise, software development can be much more efficient if we follow the principles in our day to day tasks. As it&#39;s not possible to explain everything in one article, we&#39;ll look at the seven types of &quot;waste&quot; in software development today.</p>
+      <h2>What does &quot;waste&quot; mean?</h2>
+      <p>As described in the intro, lean development has it&#39;s origin in the lean manufacturing approach. If we look at any production line, you can see that there&#39;s waste created over the process of building and assembling any product. It&#39;s not 100 percent possible to prevent, that</p>
+      <ul>
+      <li>there are metal scraps created, that are leftover from cutting metal parts</li>
+      <li>time is wasted if we needed to recalibrate or reprogram machines too often</li>
+      <li>human ressources are not used efficiently, if they are waiting for other workstations to have finished their part</li>
+      </ul>
+      <p>All of these types of waste are very visible and &quot;normal&quot; for a production line and can (and should) be optimized. But are these kind of wastes also existing in software development?</p>
+      <p>Yes, they are, although they are not very visible on the first glance. So let&#39;s step right into them.</p>
+      <h2>Partially done work</h2>
+      <p>As this one is the biggest of all wastes in my opinion, I put it as the very first one to discuss. Did you ever noticed, that in software development, we often do things and they are delivered very late, for example because the next release is planned in half a year, or even not at all, because the software has changed and whatever has been built does no longer fit to the software, that has changed in the meantime? This happens very often and is all related to &quot;partially done work&quot;.</p>
+      <p>Imagine you had a car factory, and it would build exhausts 24/7, but would only get one engine per month. What would happen shortly after starting the production? It&#39;s obvious: The exhausts would somewhen be stacked until the rooftop, while only one of them would be used per month to actually build a car. The same is true for software:</p>
+      <p>If we start to implement different pieces of software, we might have plenty of unfinished puzzle pieces lying around in our &quot;warehouse&quot;, not serving any purpose. Only when we can make it possible, to actually release them, they start to generate value for the user and the software vendor. Therefore, we should optimize our process to build one thing at a time and release it as soon as possible, so that it actually serves the customer. You need to avoid letting your software &quot;warehouse&quot; getting filled with unfinished software at all costs.</p>
+      <h2>Over production</h2>
+      <p>Very similiar to the first waste, we can pollute our &quot;software warehouse&quot; with things, that were never requested and are never needed. If we try to implement additional features that we think are useful, but the customer does not need it and it generates no sales value, we are creating something that nobody will be ever using. Even worse: The extra feature now needs to be maintained and will add additional costs over the whole lifecycle of the software. Stick to the YAGNI Principle (You ain&#39;t gonna need it) and don&#39;t implement, what is not required.</p>
+      <h2>Extra processing</h2>
+      <p>Another waste, that is coming from doing too much is the waste of extra processing. This means, that we are doing unnecessary steps in the process, which are not needed. For example: At our company, QA is responsible for deployment. Why? Because they are the last ones, that are working on a specific task. If they have tested everything and say, that it&#39;s deployable, why should they give it back to development, ops or somebody else to &quot;push the button&quot;? This would just create additional waiting times without any further value. Every step in the process, that is done because of some rules, but does not add any value to our software, should be removed immediatly.</p>
+      <h2>Task / Context switching</h2>
+      <p>Did you ever ask yourself, why it takes so long to print a custom image on a T-Shirt? To print images on clothes, there are most of the time very heavy machines needed. These machines need to be either reprogrammed to a certain image, or sometimes even need custom &quot;plates&quot; or &quot;sieves&quot; to be applied, before the machine can change what it is printing. Therefore it&#39;s much easier to print 1000 shirts with the same image, than 5 T-Shirts with an individual image each. The onboarding time kills any productivity.</p>
+      <p>The same goes for Software development:
+      Every time, that a software developer needs to switch a task, they have some onboarding time. Maybe they need to commit their current changes, switch the branch, understand what they need to do, actually develop something, commit, switch back and try to find out, where they left. Context switching is very costly and even a &quot;five minute task&quot; can become resource consuming very fast. Try to avoid context switching, wherever possible.</p>
+      <h2>Waiting / delays</h2>
+      <p>Another waste that means in consequence utilizing our &quot;developer resources&quot; very badly, is when we make them wait. This can happen, if a developer needs to wait for specification / another developer / some other thing in the development process and cannot work. It&#39;s also happening, if you have poor Hardware and the developer has to wait plenty of time for the software to compile or if you don&#39;t care for example on your CI / CD pipeline and it takes hours to get the feedback, that some code needs to be changed because of linting errors. The waiting of developers for things outside of their control often leads to Task / Context switching, so having one of this can even cause two wastes at the same time.</p>
+      <h2>Hand-Offs / Handovers</h2>
+      <p>Every time the person working on a specific task changes, there is some hand off &quot;waste&quot; generated. This comes, because not everybody has the same information at every point in time and therefore, people need to &quot;get into&quot; whatever they need to do, ask others for information or make the same learnings, somebody else has already made. This becomes especially painful, if a task goes back and forth in the software &quot;production line&quot;, because this waste of resources will grow the more often a task was handover to somebody else.</p>
+      <p>This type of waste can be reduced, by filling in more people at the same time, make them work together more closely and shorten feedback loops. Also documentation of learnings or preperation for the work of others (e.g. hints for QA, that something that does not seem to be affected could possibly be affected) can help reducing this waste.</p>
+      <h2>Defects</h2>
+      <p>I often hear the joke, that software can be build fast or with a high quality - chose one of them. I personally don&#39;t get this, because if you have a poor quality software, the development will automatically become slow. So to have a high velocity, you absolutely have to minimize defects as good as possible.</p>
+      <p>Just think about any defect, small or large:<br>If it is detected, e.g. by QA or by automated tests before deployment, it starts to create &quot;waste&quot;: Somebody has to look at it, maybe debug it for some time to find the root cause and document their findings. Then there needs to be a handover to a software developer, who might have to switch the context to implement a bugfix for the defect. Then it has to go through the whole &quot;production process&quot; again and hopefully it works this time.</p>
+      <p>Defects are the worst waste in terms of impact, because every time it occurs, it triggers plenty of other steps that are causing waste again. As for this, you should care very much for short feedback loops to find defects as soon as possible. You should also try to integrate code as often as possible and release as early as possible, because some things will only occur when they are tested by real users. High development speed without having a high quality is in my opinion just not possible.</p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p>© 2026 Marcel Cremer</p>
+      <nav>
+        <a href="https://www.linkedin.com/in/marcel-cremer/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="mailto:marcel@cremer.one">Contact</a>
+        <a href="../../../impressum/">Impressum</a>
+        <a href="../../../datenschutz/">Privacy</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="../../../script.js"></script>
+</body>
+</html>
