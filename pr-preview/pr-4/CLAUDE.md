@@ -2,6 +2,11 @@
 
 This repo is the personal GitHub Pages site of Marcel Cremer (`marcelcremer.github.io`).
 
+## Brand
+
+- All visual design (colors, typography) must follow [`STYLEGUIDE.md`](./STYLEGUIDE.md).
+- The website uses the "Digital / Brand" system from the styleguide (fixed light theme, `#1A4D8F` primary, Montserrat). The "Presentation / Talk" system in the same file is for slide decks only — never apply it to the site.
+
 ## Deployment
 
 - The site is deployed via GitHub Actions to the `gh-pages` branch (GitHub Pages source: "Deploy from a branch", branch `gh-pages`).
