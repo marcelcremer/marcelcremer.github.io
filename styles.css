@@ -318,6 +318,35 @@ section > h2 {
   font-weight: 600;
 }
 
+/* Format badges — Live / Online / Podcast, next to the venue/date line */
+
+.badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.1rem 0.5rem;
+  border-radius: 999px;
+  margin-left: 0.4rem;
+}
+
+.badge-live {
+  background: var(--color-secondary);
+  color: var(--color-on-accent);
+}
+
+.badge-online {
+  background: var(--color-secondary-2);
+  color: #fff;
+}
+
+.badge-podcast {
+  background: transparent;
+  border: 1px solid var(--color-text-muted);
+  color: var(--color-text-muted);
+}
+
 .card h3 {
   font-size: 1.05rem;
   margin: 0 0 0.4rem;
