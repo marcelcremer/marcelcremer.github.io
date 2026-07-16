@@ -1,8 +1,9 @@
 /* Marcel Cremer — personal homepage
    Brand system: see STYLEGUIDE.md. The site deliberately uses the dark
-   "Presentation / Talk" palette (anthracite + yellow) rather than the
-   light Digital/Brand background — see the "Applied on the website" note
-   in the styleguide. */
+   anthracite background from the "Presentation / Talk" system, but with the
+   Digital/Brand "secondary" blue as its accent instead of the Talk system's
+   yellow, rather than the light Digital/Brand background — see the
+   "Applied on the website" note in the styleguide. */
 
 @font-face {
   font-family: "Montserrat";
@@ -32,7 +33,7 @@
   --color-primary:     #1A4D8F;
   --color-secondary:   #38BDF8;
   --color-secondary-2: #16A340;
-  --color-accent:      #F5C400;
+  --color-accent:      #38BDF8;
 
   --color-background: #222222;
   --color-surface:    #2A2A2A;
@@ -97,8 +98,9 @@ p {
   color: var(--color-text-muted);
 }
 
-/* Yellow "highlighter box" — same treatment as the title-slide keyword box
-   in the talk deck: solid accent fill, dark text. */
+/* Blue "highlighter box" — same treatment as the title-slide keyword box
+   in the talk deck, but with the accent recolored from yellow to blue:
+   solid accent fill, dark text. */
 
 .mark {
   background: var(--color-accent);
@@ -214,7 +216,7 @@ section {
   padding: 3rem 0;
 }
 
-/* Section headers: full-bleed yellow bar, left-aligned — same pattern as
+/* Section headers: full-bleed blue bar, left-aligned — same pattern as
    the talk deck's section-header slides. */
 
 section > h2 {

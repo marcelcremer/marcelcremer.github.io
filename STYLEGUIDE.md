@@ -40,23 +40,25 @@ Keynote), not for the site.
 ### Applied on the website
 
 The website is a deliberate crossover: it borrows the **dark anthracite
-palette from the Presentation / Talk system** (`#222222` background,
-`#F5C400` accent, white text) instead of the light Digital/Brand
-background, so the site feels like a continuation of the talk decks
-rather than a generic corporate homepage. Fixed dark theme — no light
+background from the Presentation / Talk system** (`#222222` background,
+white text) instead of the light Digital/Brand background, so the site
+feels like a continuation of the talk decks rather than a generic
+corporate homepage — but its accent is the Digital/Brand `secondary`
+blue rather than the Talk system's yellow. Fixed dark theme — no light
 mode toggle.
 
 - `background` (`#222222`) as the page canvas; a slightly lighter/darker
   anthracite (`#2A2A2A` / `#1B1B1B`) for cards and banded sections.
-- `accent` (yellow, `#F5C400`) used exactly as in the deck: solid-fill
-  "yellow box" treatment for the logo, hero eyebrow and highlighted
-  keywords, and full-bleed left-aligned bars for section headings —
-  the site's `h2`/`.page-title` styling mirrors the deck's
-  section-header slides. Text on an accent fill is dark, never yellow
-  text on dark background (contrast).
-- `secondary` (sky blue) and `secondary-2` (green) survive from the
-  Digital/Brand system as small badge fills to tell the three expertise
-  pillars (tech / business / capital) apart at a glance.
+- `accent` (blue, `#38BDF8`, same value as `secondary`) used the same
+  way the deck's yellow accent was: solid-fill "highlighter box"
+  treatment for the logo, hero eyebrow and highlighted keywords, and
+  full-bleed left-aligned bars for section headings — the site's
+  `h2`/`.page-title` styling mirrors the deck's section-header slides.
+  Text on an accent fill is dark, never white text on the fill
+  (contrast).
+- `secondary-2` (green) survives from the Digital/Brand system as a
+  small badge fill to tell the three expertise pillars (tech / business
+  / capital) apart at a glance.
 - `primary` (deep blue) is **not** used on the site — on the anthracite
   background it doesn't have enough contrast to read as text or UI
   color. It stays reserved for print/Canva/documents.
